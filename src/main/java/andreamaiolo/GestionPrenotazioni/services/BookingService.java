@@ -2,6 +2,7 @@ package andreamaiolo.GestionPrenotazioni.services;
 
 import andreamaiolo.GestionPrenotazioni.entities.Bookings;
 import andreamaiolo.GestionPrenotazioni.exceptions.NotfoundException;
+import andreamaiolo.GestionPrenotazioni.exceptions.ValidationException;
 import andreamaiolo.GestionPrenotazioni.repositories.BookingsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,11 @@ public class BookingService {
     private BookingsRepo bookingsRepo;
 
     public void saveBooking(Bookings bookingToSave) {
-        bookingsRepo.save(bookingToSave);
-        System.out.println("booking saved in db!");
+        boolean bookingNotAvailable = bookingsRepo.existsByDateOfBooking(bookingToSave.getDateOfBooking());
+        if (!bookingNotAvailable) {
+            bookingsRepo.save(bookingToSave);
+            System.out.println("booking saved in db!");
+        } else throw new ValidationException("sorry the work space is not available on this date");
     }
 
     public Bookings findById(long id) {

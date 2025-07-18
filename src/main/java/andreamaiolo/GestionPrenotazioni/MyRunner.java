@@ -1,6 +1,5 @@
 package andreamaiolo.GestionPrenotazioni;
 
-import andreamaiolo.GestionPrenotazioni.entities.Bookings;
 import andreamaiolo.GestionPrenotazioni.entities.Building;
 import andreamaiolo.GestionPrenotazioni.entities.User;
 import andreamaiolo.GestionPrenotazioni.entities.WorkStation;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -75,8 +73,11 @@ public class MyRunner implements CommandLineRunner {
 
         User userfromDb = userService.findById(1);
         WorkStation wsFromDb = workStationService.findById(52);
-        Bookings booking1 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
-        bookingService.saveBooking(booking1);
+//        Bookings booking1 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
+//        bookingService.saveBooking(booking1);
+//        Bookings booking2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
+//        bookingService.saveBooking(booking2);
 
+        
     }
 }
