@@ -1,5 +1,6 @@
 package andreamaiolo.GestionPrenotazioni;
 
+import andreamaiolo.GestionPrenotazioni.entities.Bookings;
 import andreamaiolo.GestionPrenotazioni.entities.Building;
 import andreamaiolo.GestionPrenotazioni.entities.User;
 import andreamaiolo.GestionPrenotazioni.entities.WorkStation;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -53,34 +55,27 @@ public class MyRunner implements CommandLineRunner {
         List<Building> allBuildings = buildingService.findAll();
 
 
-//        Supplier<WorkStation> wsSupplier = () -> {
-//            WorkStation newWs = new WorkStation(faker.lorem().sentence(5), faker.number().randomDigitNotZero(),
-//                    allBuildings.get(faker.random().nextInt(allBuildings.size())),
-//                    WorkstationType.values()[faker.random().nextInt(WorkstationType.values().length)]);
-//            return newWs;
-//        };
-
-
         Supplier<WorkStation> wsSupplier = () -> {
             WorkStation newWs = new WorkStation(faker.lorem().sentence(5), faker.number().randomDigitNotZero(),
-                    buildingService.findById(102),
+                    allBuildings.get(faker.random().nextInt(allBuildings.size())),
                     WorkstationType.values()[faker.random().nextInt(WorkstationType.values().length)]);
             return newWs;
         };
+
 //
 //        for (int i = 0; i < 20; i++) {
 //            workStationService.saveWs(wsSupplier.get());
 //        }
-        List<WorkStation> allWs = workStationService.findAll();
 
+        //cant add existing users or buildings
 //        User check = new User("test", "AmeDeo.palmieri@libero.it", "test");
 //        userService.saveUser(check);
-
 //        Building check2 = new Building("dhjdj", "piano 6 via ercole 1, lia calabro, CS 56702", "dsjhf");
 //        buildingService.saveBuilding(check2);
 
+
         User userfromDb = userService.findById(1);
-        WorkStation wsFromDb = workStationService.findById(52);
+        WorkStation wsFromDb = workStationService.findById(53);
 //        Bookings booking1 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
 //        bookingService.saveBooking(booking1);
         //check availability by date
@@ -117,11 +112,13 @@ public class MyRunner implements CommandLineRunner {
 //        WorkStation wsTest = new WorkStation("test", 3, building2FromDb, WorkstationType.CONFERENCEROOM);
 //        workStationService.saveWs(wsTest);
 
-        List<WorkStation> wsInCity = buildingService.findByCityName("zelida sardo")
-                .stream()
-                .flatMap(building -> workStationService.findByBuildingId(building.getId()).stream())
-                .toList();
+//        List<WorkStation> wsInCity = buildingService.findByCityName("zelida sardo")
+//                .stream()
+//                .flatMap(building -> workStationService.findByBuildingId(building.getId()).stream())
+//                .toList();
+//
+//        System.out.println(wsInCity);
 
-        System.out.println(wsInCity);
+        Bookings newB2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(20205, 01, 03));
     }
 }

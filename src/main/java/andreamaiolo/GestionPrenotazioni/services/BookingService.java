@@ -15,11 +15,41 @@ public class BookingService {
     private BookingsRepo bookingsRepo;
 
     public void saveBooking(Bookings bookingToSave) {
-        boolean bookingNotAvailable = bookingsRepo.existsByDateOfBooking(bookingToSave.getDateOfBooking());
-        if (!bookingNotAvailable) {
+        //get user bokkings
+//        List<Bookings> allTheBookingsByUser = bookingsRepo.findByUserId(bookingToSave.getUserId().getId());
+//        //check dates
+//        bookingsRepo.existsByDateOfBooking(allTheBookingsByUser.stream()
+//                .map(booking -> LocalDate l = booking.getDateOfBooking()))
+
+        boolean userHasBooking = bookingsRepo.existsByUserIdAndDateOfBooking(bookingToSave.getUserId().getId(),
+                bookingToSave.getDateOfBooking());
+        if (userHasBooking) {
+            throw new ValidationException("user already has  abooking");
+        } else {
             bookingsRepo.save(bookingToSave);
-            System.out.println("booking saved in db!");
-        } else throw new ValidationException("sorry the work space is not available on this date");
+            System.out.println("b saved!!!!!!!!!!!!");
+        }
+
+
+        //check user doestn have a booking already
+//        List<Long> listOfUsersId = allTheBookingsByUser.stream()
+//                .map(booking -> booking.getUserId().getId())
+//                .toList();
+//
+//
+//
+//        if(!userHasBookingAlready){
+//            boolean wsNotAvailable = bookingsRepo.
+//
+//        }else throw new ValidationException("user already has a booking on this date");
+//
+//
+//
+//        boolean bookingNotAvailable = bookingsRepo.existsByDateOfBooking(bookingToSave.getDateOfBooking());
+//        if (!bookingNotAvailable) {
+//            bookingsRepo.save(bookingToSave);
+//            System.out.println("booking saved in db!");
+//        } else throw new ValidationException("sorry the work space is not available on this date");
 
     }
 
