@@ -14,6 +14,7 @@ public class WorkStation {
     // private UUID id;
     private String description;
     private int maxOccupancy;
+    @Enumerated(EnumType.STRING)
     private WorkstationType type;
 
     @ManyToOne
