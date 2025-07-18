@@ -2,6 +2,7 @@ package andreamaiolo.GestionPrenotazioni.services;
 
 import andreamaiolo.GestionPrenotazioni.entities.User;
 import andreamaiolo.GestionPrenotazioni.exceptions.NotfoundException;
+import andreamaiolo.GestionPrenotazioni.exceptions.ValidationException;
 import andreamaiolo.GestionPrenotazioni.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,11 @@ public class UserService {
     private UserRepo userRepo;
 
     public void saveUser(User userToSave) {
-        userRepo.save(userToSave);
-        System.out.println("user saved in db!");
+        boolean userInDb = userRepo.existsByEmailIgnoreCase(userToSave.getEmail());
+        if (!userInDb) {
+            userRepo.save(userToSave);
+            System.out.println("user saved in db!");
+        } else throw new ValidationException("this email is already in use");
     }
 
     public User findById(long id) {
@@ -31,4 +35,6 @@ public class UserService {
     public List<User> findAll() {
         return userRepo.findAll();
     }
+
+
 }

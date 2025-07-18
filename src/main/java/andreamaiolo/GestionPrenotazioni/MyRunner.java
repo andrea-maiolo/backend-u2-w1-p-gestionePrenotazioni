@@ -1,5 +1,6 @@
 package andreamaiolo.GestionPrenotazioni;
 
+import andreamaiolo.GestionPrenotazioni.entities.Bookings;
 import andreamaiolo.GestionPrenotazioni.entities.Building;
 import andreamaiolo.GestionPrenotazioni.entities.User;
 import andreamaiolo.GestionPrenotazioni.entities.WorkStation;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -59,10 +61,22 @@ public class MyRunner implements CommandLineRunner {
                     WorkstationType.values()[faker.random().nextInt(WorkstationType.values().length)]);
             return newWs;
         };
+//
+//        for (int i = 0; i < 20; i++) {
+//            workStationService.saveWs(wsSupplier.get());
+//        }
+        List<WorkStation> allWs = workStationService.findAll();
 
-        for (int i = 0; i < 20; i++) {
-            workStationService.saveWs(wsSupplier.get());
-        }
+//        User check = new User("test", "AmeDeo.palmieri@libero.it", "test");
+//        userService.saveUser(check);
+
+//        Building check2 = new Building("dhjdj", "piano 6 via ercole 1, lia calabro, CS 56702", "dsjhf");
+//        buildingService.saveBuilding(check2);
+
+        User userfromDb = userService.findById(1);
+        WorkStation wsFromDb = workStationService.findById(52);
+        Bookings booking1 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
+        bookingService.saveBooking(booking1);
 
     }
 }

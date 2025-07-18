@@ -2,6 +2,7 @@ package andreamaiolo.GestionPrenotazioni.services;
 
 import andreamaiolo.GestionPrenotazioni.entities.Building;
 import andreamaiolo.GestionPrenotazioni.exceptions.NotfoundException;
+import andreamaiolo.GestionPrenotazioni.exceptions.ValidationException;
 import andreamaiolo.GestionPrenotazioni.repositories.BuildingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,11 @@ public class BuildingService {
     private BuildingRepo buildingRepo;
 
     public void saveBuilding(Building buildingToSave) {
-        buildingRepo.save(buildingToSave);
-        System.out.println("building saved in db!");
+        boolean buildingInDb = buildingRepo.existsByAddressIgnoreCase(buildingToSave.getAddress());
+        if (!buildingInDb) {
+            buildingRepo.save(buildingToSave);
+            System.out.println("building saved in db!");
+        } else throw new ValidationException("building at this address is already registred");
     }
 
     public Building findById(long id) {
