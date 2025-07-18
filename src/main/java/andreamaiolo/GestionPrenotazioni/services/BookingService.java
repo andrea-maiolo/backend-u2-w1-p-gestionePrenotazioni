@@ -20,6 +20,7 @@ public class BookingService {
             bookingsRepo.save(bookingToSave);
             System.out.println("booking saved in db!");
         } else throw new ValidationException("sorry the work space is not available on this date");
+
     }
 
     public Bookings findById(long id) {

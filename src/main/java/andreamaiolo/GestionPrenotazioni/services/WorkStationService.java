@@ -39,7 +39,7 @@ public class WorkStationService {
         return workStationRepo.findByType(typeToSearch);
     }
 
-    public List<WorkStation> findByBuildingId(int buildingId) {
+    public List<WorkStation> findByBuildingId(long buildingId) {
         return workStationRepo.findByBuildingId(buildingId);
     }
 }

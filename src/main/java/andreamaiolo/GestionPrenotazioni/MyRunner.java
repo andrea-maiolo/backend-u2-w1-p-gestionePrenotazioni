@@ -105,12 +105,23 @@ public class MyRunner implements CommandLineRunner {
 //            wsSupplier.get();
 //        }
 
-        // Building testmFromDb = buildingService.findById(8);
-        List<WorkStation> wsInBu = workStationService.findByBuildingId(8);
-        System.out.println(wsInBu);
+        Building building2FromDb = buildingService.findById(102);
+
+        //
+        // List<Building> buildingsByCity = buildingService.findByCityName("zelida sardo");
+
+//        List<WorkStation> wsInCity = workStationService.findByBuildingId(
+//                buildingService.findByCityName("zelida sasrdo").forEach(b -> b.getId()));
 
 
-        // List<WorkStation> wsInBuildingWithCity = workStationService.findByBuildingId(buildingsByCity.stream().mapToLong(b->b.getId()));
+//        WorkStation wsTest = new WorkStation("test", 3, building2FromDb, WorkstationType.CONFERENCEROOM);
+//        workStationService.saveWs(wsTest);
 
+        List<WorkStation> wsInCity = buildingService.findByCityName("zelida sardo")
+                .stream()
+                .flatMap(building -> workStationService.findByBuildingId(building.getId()).stream())
+                .toList();
+
+        System.out.println(wsInCity);
     }
 }

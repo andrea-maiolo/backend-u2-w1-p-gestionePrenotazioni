@@ -13,4 +13,5 @@ public interface WorkStationRepo extends JpaRepository<WorkStation, Long> {
     List<WorkStation> findByType(WorkstationType type);
 
     List<WorkStation> findByBuildingId(long buildingId);
+
 }

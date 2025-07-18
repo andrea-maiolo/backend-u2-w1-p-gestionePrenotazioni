@@ -22,9 +22,9 @@ public class Bookings {
     public Bookings() {
     }
 
-    public Bookings(User userId, WorkStation workStationId, LocalDate dateOfBooking) {
-        this.userId = userId;
-        this.workStationId = workStationId;
+    public Bookings(User user, WorkStation workStation, LocalDate dateOfBooking) {
+        this.userId = user;
+        this.workStationId = workStation;
         this.dateOfBooking = dateOfBooking;
     }
 
