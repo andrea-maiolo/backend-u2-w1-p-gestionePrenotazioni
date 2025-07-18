@@ -86,9 +86,13 @@ public class MyRunner implements CommandLineRunner {
                 .stream()
                 .flatMap(building -> workStationService.findByBuildingId(building.getId()).stream())
                 .toList();
-        System.out.println(wsInCity);
+        // System.out.println(wsInCity);
 
         Bookings newB2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
-        bookingService.saveBooking(newB2);
+        // bookingService.saveBooking(newB2);
+
+        //actual search by city
+        List<WorkStation> wsByCity = workStationService.findByCity("zelida sardo");
+        System.out.println(wsByCity);
     }
 }

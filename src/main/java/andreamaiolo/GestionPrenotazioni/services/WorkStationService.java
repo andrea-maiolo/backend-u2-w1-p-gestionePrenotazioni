@@ -1,5 +1,6 @@
 package andreamaiolo.GestionPrenotazioni.services;
 
+import andreamaiolo.GestionPrenotazioni.entities.Building;
 import andreamaiolo.GestionPrenotazioni.entities.WorkStation;
 import andreamaiolo.GestionPrenotazioni.enums.WorkstationType;
 import andreamaiolo.GestionPrenotazioni.exceptions.NotfoundException;
@@ -13,6 +14,9 @@ import java.util.List;
 public class WorkStationService {
     @Autowired
     private WorkStationRepo workStationRepo;
+
+    @Autowired
+    private BuildingService buildingService;
 
     public void saveWs(WorkStation wsToSave) {
         workStationRepo.save(wsToSave);
@@ -42,4 +46,16 @@ public class WorkStationService {
     public List<WorkStation> findByBuildingId(long buildingId) {
         return workStationRepo.findByBuildingId(buildingId);
     }
+
+//added after 5
+    public List<WorkStation> findByCity(String city) {
+        List<Building> buildingInCity = buildingService.findByCityName(city);
+        List<WorkStation> wsInCity = buildingInCity.stream()
+                .flatMap(building -> this.findByBuildingId(building.getId()).stream())
+                .toList();
+
+        System.out.println(wsInCity);
+        return wsInCity;
+    }
+
 }
