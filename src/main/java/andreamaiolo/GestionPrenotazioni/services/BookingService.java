@@ -14,9 +14,9 @@ public class BookingService {
     @Autowired
     private BookingsRepo bookingsRepo;
 
+    //fatto dopo le 5
     public void saveBooking(Bookings bookingToSave) {
-
-
+        
         List<Bookings> bookingByDate = bookingsRepo.findByDateOfBookingAndUserId(bookingToSave.getDateOfBooking(),
                 bookingToSave.getUserId());
         System.out.println(bookingByDate);

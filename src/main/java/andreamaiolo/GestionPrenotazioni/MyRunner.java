@@ -76,30 +76,12 @@ public class MyRunner implements CommandLineRunner {
 
         User userfromDb = userService.findById(3);
         WorkStation wsFromDb = workStationService.findById(53);
-//        Bookings booking1 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
-//        bookingService.saveBooking(booking1);
-        //check availability by date
-//        Bookings booking2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
-//        bookingService.saveBooking(booking2);
-//
+
         //search by tupe
 //        List<WorkStation> wsByOpenspace = workStationService.findByType("og45");
 //        System.out.println(wsByOpenspace);
 
         //search by city name
-        //List<Building> buildingsByCity = buildingService.findByCityName("zelida sardo");
-        // System.out.println(buildingsByCity);
-
-//        Building testZelida = new Building("test", "test", "Zelida sardo");
-//        buildingService.saveBuilding(testZelida);
-
-        // Building testm = new Building("test", "test2", "Zelida sardo");
-        //buildingService.saveBuilding(testm);
-
-//        for (int i = 0; i < 2; i++) {
-//            wsSupplier.get();
-//        }
-
         List<WorkStation> wsInCity = buildingService.findByCityName("zelida sardo")
                 .stream()
                 .flatMap(building -> workStationService.findByBuildingId(building.getId()).stream())
