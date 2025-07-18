@@ -35,4 +35,8 @@ public class BuildingService {
     public List<Building> findAll() {
         return buildingRepo.findAll();
     }
+
+    public List<Building> findByCityName(String city) {
+        return buildingRepo.findByCityIgnoreCase(city);
+    }
 }

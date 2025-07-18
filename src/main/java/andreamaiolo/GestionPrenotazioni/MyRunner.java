@@ -53,9 +53,17 @@ public class MyRunner implements CommandLineRunner {
         List<Building> allBuildings = buildingService.findAll();
 
 
+//        Supplier<WorkStation> wsSupplier = () -> {
+//            WorkStation newWs = new WorkStation(faker.lorem().sentence(5), faker.number().randomDigitNotZero(),
+//                    allBuildings.get(faker.random().nextInt(allBuildings.size())),
+//                    WorkstationType.values()[faker.random().nextInt(WorkstationType.values().length)]);
+//            return newWs;
+//        };
+
+
         Supplier<WorkStation> wsSupplier = () -> {
             WorkStation newWs = new WorkStation(faker.lorem().sentence(5), faker.number().randomDigitNotZero(),
-                    allBuildings.get(faker.random().nextInt(allBuildings.size())),
+                    buildingService.findById(102),
                     WorkstationType.values()[faker.random().nextInt(WorkstationType.values().length)]);
             return newWs;
         };
@@ -75,11 +83,34 @@ public class MyRunner implements CommandLineRunner {
         WorkStation wsFromDb = workStationService.findById(52);
 //        Bookings booking1 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
 //        bookingService.saveBooking(booking1);
+        //check availability by date
 //        Bookings booking2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
 //        bookingService.saveBooking(booking2);
 //
+        //search by tupe
 //        List<WorkStation> wsByOpenspace = workStationService.findByType("og45");
 //        System.out.println(wsByOpenspace);
+
+        //search by city name
+        List<Building> buildingsByCity = buildingService.findByCityName("zelida sardo");
+        // System.out.println(buildingsByCity);
+
+//        Building testZelida = new Building("test", "test", "Zelida sardo");
+//        buildingService.saveBuilding(testZelida);
+
+        Building testm = new Building("test", "test2", "Zelida sardo");
+        //buildingService.saveBuilding(testm);
+
+//        for (int i = 0; i < 2; i++) {
+//            wsSupplier.get();
+//        }
+
+        // Building testmFromDb = buildingService.findById(8);
+        List<WorkStation> wsInBu = workStationService.findByBuildingId(8);
+        System.out.println(wsInBu);
+
+
+        // List<WorkStation> wsInBuildingWithCity = workStationService.findByBuildingId(buildingsByCity.stream().mapToLong(b->b.getId()));
 
     }
 }

@@ -38,4 +38,8 @@ public class WorkStationService {
         WorkstationType typeToSearch = WorkstationType.valueOf(tUpperCase);
         return workStationRepo.findByType(typeToSearch);
     }
+
+    public List<WorkStation> findByBuildingId(int buildingId) {
+        return workStationRepo.findByBuildingId(buildingId);
+    }
 }

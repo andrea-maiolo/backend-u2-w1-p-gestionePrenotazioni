@@ -2,6 +2,8 @@ package andreamaiolo.GestionPrenotazioni.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "buildings")
@@ -12,6 +14,9 @@ public class Building {
     private String name;
     private String address;
     private String city;
+
+    @OneToMany(mappedBy = "building")
+    private List<WorkStation> workStationsInBuilding;
 
     public Building() {
     }
