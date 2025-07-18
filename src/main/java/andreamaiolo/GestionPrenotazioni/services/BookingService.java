@@ -15,41 +15,25 @@ public class BookingService {
     private BookingsRepo bookingsRepo;
 
     public void saveBooking(Bookings bookingToSave) {
-        //get user bokkings
-//        List<Bookings> allTheBookingsByUser = bookingsRepo.findByUserId(bookingToSave.getUserId().getId());
-//        //check dates
-//        bookingsRepo.existsByDateOfBooking(allTheBookingsByUser.stream()
-//                .map(booking -> LocalDate l = booking.getDateOfBooking()))
 
-        boolean userHasBooking = bookingsRepo.existsByUserIdAndDateOfBooking(bookingToSave.getUserId().getId(),
-                bookingToSave.getDateOfBooking());
-        if (userHasBooking) {
-            throw new ValidationException("user already has  abooking");
+
+        List<Bookings> bookingByDate = bookingsRepo.findByDateOfBookingAndUserId(bookingToSave.getDateOfBooking(),
+                bookingToSave.getUserId());
+        System.out.println(bookingByDate);
+
+        if (bookingByDate.size() > 0) {
+            throw new ValidationException("user has already a booking");
         } else {
-            bookingsRepo.save(bookingToSave);
-            System.out.println("b saved!!!!!!!!!!!!");
+            List<Bookings> bookingByWorkStationAndDate = bookingsRepo.findByDateOfBookingAndWorkStationId(bookingToSave.getDateOfBooking(),
+                    bookingToSave.getWorkStationId());
+            System.out.println(bookingByDate);
+
+            if (bookingByWorkStationAndDate.size() > 0) {
+                throw new ValidationException("work station already booked on this date");
+            } else {
+                bookingsRepo.save(bookingToSave);
+            }
         }
-
-
-        //check user doestn have a booking already
-//        List<Long> listOfUsersId = allTheBookingsByUser.stream()
-//                .map(booking -> booking.getUserId().getId())
-//                .toList();
-//
-//
-//
-//        if(!userHasBookingAlready){
-//            boolean wsNotAvailable = bookingsRepo.
-//
-//        }else throw new ValidationException("user already has a booking on this date");
-//
-//
-//
-//        boolean bookingNotAvailable = bookingsRepo.existsByDateOfBooking(bookingToSave.getDateOfBooking());
-//        if (!bookingNotAvailable) {
-//            bookingsRepo.save(bookingToSave);
-//            System.out.println("booking saved in db!");
-//        } else throw new ValidationException("sorry the work space is not available on this date");
 
     }
 

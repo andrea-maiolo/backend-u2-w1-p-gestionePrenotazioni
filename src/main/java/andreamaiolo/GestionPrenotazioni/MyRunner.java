@@ -74,7 +74,7 @@ public class MyRunner implements CommandLineRunner {
 //        buildingService.saveBuilding(check2);
 
 
-        User userfromDb = userService.findById(1);
+        User userfromDb = userService.findById(3);
         WorkStation wsFromDb = workStationService.findById(53);
 //        Bookings booking1 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
 //        bookingService.saveBooking(booking1);
@@ -87,38 +87,26 @@ public class MyRunner implements CommandLineRunner {
 //        System.out.println(wsByOpenspace);
 
         //search by city name
-        List<Building> buildingsByCity = buildingService.findByCityName("zelida sardo");
+        //List<Building> buildingsByCity = buildingService.findByCityName("zelida sardo");
         // System.out.println(buildingsByCity);
 
 //        Building testZelida = new Building("test", "test", "Zelida sardo");
 //        buildingService.saveBuilding(testZelida);
 
-        Building testm = new Building("test", "test2", "Zelida sardo");
+        // Building testm = new Building("test", "test2", "Zelida sardo");
         //buildingService.saveBuilding(testm);
 
 //        for (int i = 0; i < 2; i++) {
 //            wsSupplier.get();
 //        }
 
-        Building building2FromDb = buildingService.findById(102);
+        List<WorkStation> wsInCity = buildingService.findByCityName("zelida sardo")
+                .stream()
+                .flatMap(building -> workStationService.findByBuildingId(building.getId()).stream())
+                .toList();
+        System.out.println(wsInCity);
 
-        //
-        // List<Building> buildingsByCity = buildingService.findByCityName("zelida sardo");
-
-//        List<WorkStation> wsInCity = workStationService.findByBuildingId(
-//                buildingService.findByCityName("zelida sasrdo").forEach(b -> b.getId()));
-
-
-//        WorkStation wsTest = new WorkStation("test", 3, building2FromDb, WorkstationType.CONFERENCEROOM);
-//        workStationService.saveWs(wsTest);
-
-//        List<WorkStation> wsInCity = buildingService.findByCityName("zelida sardo")
-//                .stream()
-//                .flatMap(building -> workStationService.findByBuildingId(building.getId()).stream())
-//                .toList();
-//
-//        System.out.println(wsInCity);
-
-        Bookings newB2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(20205, 01, 03));
+        Bookings newB2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
+        bookingService.saveBooking(newB2);
     }
 }
