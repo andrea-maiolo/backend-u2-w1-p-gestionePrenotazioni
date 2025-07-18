@@ -1,7 +1,13 @@
 package andreamaiolo.GestionPrenotazioni.entities;
 
+import jakarta.persistence.*;
 
+
+@Entity
+@Table(name = "buildings")
 public class Building {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String name;
     private String address;

@@ -1,10 +1,21 @@
 package andreamaiolo.GestionPrenotazioni.entities;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String name;
     private String surname;
     private String email;
+
+    @OneToMany(mappedBy = "userId")
+    private List<Bookings> bookings;
 
     public User() {
     }

@@ -1,14 +1,27 @@
 package andreamaiolo.GestionPrenotazioni.entities;
 
 import andreamaiolo.GestionPrenotazioni.enums.WorkstationType;
+import jakarta.persistence.*;
 
+import java.util.List;
+
+@Entity
+@Table(name = "work_stations")
 public class WorkStation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     // private UUID id;
     private String description;
     private int maxOccupancy;
-    private Building building;
     private WorkstationType type;
+
+    @ManyToOne
+    private Building building;
+
+    @OneToMany(mappedBy = "workStationId")
+    private List<Bookings> bookings;
+
 
     public WorkStation() {
     }

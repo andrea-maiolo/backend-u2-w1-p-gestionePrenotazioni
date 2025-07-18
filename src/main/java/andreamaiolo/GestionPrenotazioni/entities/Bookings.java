@@ -1,11 +1,21 @@
 package andreamaiolo.GestionPrenotazioni.entities;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
 public class Bookings {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+
+    @ManyToOne
     private WorkStation workStationId;
+
+    @ManyToOne
     private User userId;
+
     private LocalDate dateOfBooking;
 
 
