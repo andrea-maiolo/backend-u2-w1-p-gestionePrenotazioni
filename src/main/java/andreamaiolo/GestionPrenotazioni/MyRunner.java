@@ -77,7 +77,9 @@ public class MyRunner implements CommandLineRunner {
 //        bookingService.saveBooking(booking1);
 //        Bookings booking2 = new Bookings(userfromDb, wsFromDb, LocalDate.of(2025, 01, 03));
 //        bookingService.saveBooking(booking2);
+//
+//        List<WorkStation> wsByOpenspace = workStationService.findByType("og45");
+//        System.out.println(wsByOpenspace);
 
-        
     }
 }

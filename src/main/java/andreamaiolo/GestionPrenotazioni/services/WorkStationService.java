@@ -1,6 +1,7 @@
 package andreamaiolo.GestionPrenotazioni.services;
 
 import andreamaiolo.GestionPrenotazioni.entities.WorkStation;
+import andreamaiolo.GestionPrenotazioni.enums.WorkstationType;
 import andreamaiolo.GestionPrenotazioni.exceptions.NotfoundException;
 import andreamaiolo.GestionPrenotazioni.repositories.WorkStationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,11 @@ public class WorkStationService {
 
     public List<WorkStation> findAll() {
         return workStationRepo.findAll();
+    }
+
+    public List<WorkStation> findByType(String type) {
+        String tUpperCase = type.toUpperCase();
+        WorkstationType typeToSearch = WorkstationType.valueOf(tUpperCase);
+        return workStationRepo.findByType(typeToSearch);
     }
 }
